@@ -42,7 +42,8 @@ async function saveBooking() {
         room_id: document.getElementById("room-list").value,
         guest_id: 1,
         datefrom: document.getElementById("datefrom").value,
-        dateto: document.getElementById("dateto").value
+        dateto: document.getElementById("dateto").value,
+        info: document.getElementById("info").value
     }
 
     const res = await fetch(`${API_URL}/bookings`, {
