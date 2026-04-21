@@ -45,6 +45,11 @@ async function getRooms() {
 getRooms();
 
 
+function saveStars(booking_id, stars) {
+    console.log(`booking ${booking_id} gets ${stars} stars`);
+    // add PUT/PATCH request here...
+}
+
 async function getBookings() {
     const res = await fetch(`${API_URL}/bookings`, {
         headers: { 'X-API-Key': API_KEY }
@@ -58,15 +63,15 @@ async function getBookings() {
             <li>
                 ${b.id} - ${b.datefrom} 
                     - ${b.guest_name}
-                    -  ${b.nights} nights
+                    - ${b.nights} nights
                     - ${b.total_price} €
-                <select id="stars-${b.id}">
-                    <option value="1">⭐</option>
-                    <option value="2">⭐⭐</option>
-                    <option value="3">⭐⭐⭐</option>
-                    <option value="4">⭐⭐⭐⭐</option>
-                    <option value="5">⭐⭐⭐⭐⭐</option>
-                </select>
+                    <select id="stars-${b.id}" onchange="saveStars(${b.id}, this.value)">
+                        <option value="1">⭐</option>
+                        <option value="2">⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                    </select>
             </li>
         `;
     }
@@ -96,6 +101,5 @@ async function saveBooking() {
     console.log(resData);
     getBookings();
 }
-
 
 document.getElementById('btn-save').addEventListener('click', saveBooking);
