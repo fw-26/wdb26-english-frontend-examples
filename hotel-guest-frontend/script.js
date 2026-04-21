@@ -70,7 +70,7 @@ async function saveBooking() {
 
     const booking = {
         room_id: document.getElementById("room-list").value,
-        guest_id: document.getElementById("guest-list").value,
+        //guest_id: document.getElementById("guest-list").value,
         datefrom: document.getElementById("datefrom").value,
         dateto: document.getElementById("dateto").value,
         info: document.getElementById("info").value
@@ -78,7 +78,10 @@ async function saveBooking() {
 
     const res = await fetch(`${API_URL}/bookings`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            'X-API-Key': API_KEY 
+        },
         body: JSON.stringify(booking)
     });
     const resData = await res.json();
