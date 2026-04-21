@@ -60,6 +60,13 @@ async function getBookings() {
                     - ${b.guest_name}
                     -  ${b.nights} nights
                     - ${b.total_price} €
+                <select id="stars-${b.id}">
+                    <option value="1">⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                </select>
             </li>
         `;
     }
