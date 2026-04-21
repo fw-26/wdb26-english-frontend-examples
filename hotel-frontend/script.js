@@ -2,6 +2,27 @@
 const API_URL = "http://127.0.0.1:8080";
 //const API_URL = "https://wdb26-english-examples-deployment-testing.2.rahtiapp.fi/api/ip";
 
+async function getGuests() {
+    const res = await fetch(`${API_URL}/guests`);
+    const guests = await res.json();
+
+    console.log(guests);
+
+    const guestList = document.getElementById("guest-list");
+    guestList.innerHTML = ""; // clear existing options
+
+    for (const guest of guests) {
+        guestList.innerHTML += `
+            <option value="${guest.id}">
+                ${guest.firstname} ${guest.lastname}
+                (${guest.previous_visits} visits)
+            </option>
+        `;
+    }
+}
+
+getGuests();
+
 async function getRooms() {
     const res = await fetch(`${API_URL}/rooms`);
     const rooms = await res.json();
@@ -26,10 +47,13 @@ async function getBookings() {
 
     console.log(bookings);
     document.getElementById("bookings-list").innerHTML = "";
-    for (booking of bookings) {
+    for (b of bookings) {
         document.getElementById("bookings-list").innerHTML += `
             <li>
-                ${booking.id} - ${booking.datefrom}
+                ${b.id} - ${b.datefrom} 
+                    - ${b.guest_name}
+                    -  ${b.nights} nights
+                    - ${b.total_price} €
             </li>
         `;
     }
@@ -40,7 +64,7 @@ async function saveBooking() {
 
     const booking = {
         room_id: document.getElementById("room-list").value,
-        guest_id: 1,
+        guest_id: document.getElementById("guest-list").value,
         datefrom: document.getElementById("datefrom").value,
         dateto: document.getElementById("dateto").value,
         info: document.getElementById("info").value
