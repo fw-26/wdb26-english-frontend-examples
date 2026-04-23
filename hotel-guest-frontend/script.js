@@ -87,7 +87,8 @@ async function getBookings() {
                         <option value="3">⭐⭐⭐</option>
                         <option value="4">⭐⭐⭐⭐</option>
                         <option value="5">⭐⭐⭐⭐⭐</option>
-                    </select> (stars: ${b.stars || ""})
+                    </select> (stars: ${b.stars || ""})<br>
+                    Info: <i>${b.info}</i>
             </li>
         `;
     }
