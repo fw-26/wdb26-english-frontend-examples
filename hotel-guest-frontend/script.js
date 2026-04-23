@@ -44,10 +44,26 @@ async function getRooms() {
 }
 getRooms();
 
+async function updateBooking(booking_id, data) {
+    const res = await fetch(`${API_URL}/bookings/${booking_id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-API-Key': API_KEY
+        },
+        body: JSON.stringify(data)
+    });
+    const resData = await res.json();
+    console.log(resData);
+
+    getBookings();
+}
+
 
 function saveStars(booking_id, stars) {
     console.log(`booking ${booking_id} gets ${stars} stars`);
     // add PUT/PATCH request here...
+    updateBooking(booking_id, { stars: stars });
 }
 
 async function getBookings() {
@@ -71,7 +87,7 @@ async function getBookings() {
                         <option value="3">⭐⭐⭐</option>
                         <option value="4">⭐⭐⭐⭐</option>
                         <option value="5">⭐⭐⭐⭐⭐</option>
-                    </select>
+                    </select> (stars: ${b.stars || ""})
             </li>
         `;
     }
@@ -90,9 +106,9 @@ async function saveBooking() {
 
     const res = await fetch(`${API_URL}/bookings`, {
         method: 'POST',
-        headers: { 
+        headers: {
             'Content-Type': 'application/json',
-            'X-API-Key': API_KEY 
+            'X-API-Key': API_KEY
         },
         body: JSON.stringify(booking)
     });
